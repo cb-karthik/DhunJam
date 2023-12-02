@@ -2,22 +2,7 @@ import { useEffect, useState } from "react";
 import Chart from "./Chart";
 import { useNavigate } from "react-router-dom";
 
-// {
-//   "id": 4,
-//   "name": "Diona",
-//   "location": "Jaipur",
-//   "charge_customers": true,
-//   "hosts": [],
-//   "business_type": "free",
-//   "display_amount": true,
-//   "amount": {
-//       "category_6": 454,
-//       "category_7": 199,
-//       "category_8": 149,
-//       "category_9": 99,
-//       "category_10": 49
-//   }
-// }
+
 
 function AdminDashboard() {
   const [chargeForSongs, setChargeForSongs] = useState(false);
@@ -37,20 +22,12 @@ function AdminDashboard() {
       data?.amount?.category_8,
       data?.amount?.category_9,
       data?.amount?.category_10,
-    ]
-      .filter(Boolean)
-      .sort((a, b) => b - a);
+    ];
 
     setAmounts(sortedAmounts);
   }, [data]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (!isEnabled) return;
-
-    console.log("Settings saved:", { chargeForSongs, customSongAmount });
-  };
-
+ 
   const handleAmountChange = (index, value) => {
     const updatedAmounts = [...amounts];
     updatedAmounts[index] = Number(value); // Make sure we're dealing with numbers not strings
@@ -85,13 +62,17 @@ function AdminDashboard() {
     fetchAdminDetails();
   }, []);
 
-
-  const updateAdminPrices = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!isEnabled) return;
     const url = "https://stg.dhunjam.in/account/admin/4";
     const body = {
       amount: {
         category_6: Number(customSongAmount),
-        
+        category_7: Number(amounts[0]),
+        category_8: Number(amounts[1]),
+        category_9: Number(amounts[2]),
+        category_10: Number(amounts[3])
       },
     };
 
@@ -127,7 +108,7 @@ function AdminDashboard() {
         {name}, {location} on Dhun Jam
       </div>
       <form
-        onSubmit={handleSubmit}
+       
         className="w-full max-w-xl px-4 text-[16px]"
       >
         <div className="flex items-center justify-between mb-4">
@@ -195,16 +176,19 @@ function AdminDashboard() {
           ))}
         </div>
 
-      
-
         {chargeForSongs && (
-          <div className={`bg-[#030303] w-[600px] mt-20 h-64 mb-4 flex items-center relative `}>
-            <span className="absolute text-white text-lg top-[0] left-0 ">₹</span>
+          <div
+            className={`bg-[#030303] w-[600px] mt-20 h-64 mb-4 flex items-center relative `}
+          >
+            <span className="absolute text-white text-lg top-[0] left-0 ">
+              ₹
+            </span>
             <Chart amounts={[customSongAmount, ...amounts]} />
           </div>
         )}
         <button
-         onClick={updateAdminPrices }
+          type="submit"
+          onClick={handleSubmit}
           disabled={!isEnabled}
           className={`w-full mt-24 text-white font-bold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline ${
             isEnabled ? "bg-[#6741D9]" : "bg-gray-400"

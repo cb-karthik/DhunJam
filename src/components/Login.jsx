@@ -2,7 +2,6 @@ import { useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
 
-
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -10,7 +9,6 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!isPasswordVisible);
@@ -22,30 +20,34 @@ function Login() {
     setError(null);
 
     try {
-      const response = await fetch('https://stg.dhunjam.in/account/admin/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
+      const response = await fetch(
+        "https://stg.dhunjam.in/account/admin/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
 
       const data = await response.json();
 
       if (response.ok) {
-        console.log('Login successful:', data);
-              navigate({
-                pathname:'/dashboard',
-               
-              })
-              localStorage.setItem("userId",data?.data?.id)
+        console.log("Login successful:", data);
+        navigate({
+          pathname: "/dashboard",
+        });
+        localStorage.setItem("userId", data?.data?.id);
       } else {
-        console.error('Login failed:', data);
-        setError(data.ui_err_msg || 'Failed to login, Check Username and password');
+        console.error("Login failed:", data);
+        setError(
+          data.ui_err_msg || "Failed to login, Check Username and password"
+        );
       }
     } catch (err) {
-      console.error('Network error:', err);
-      setError('Network error, please try again later.');
+      console.error("Network error:", err);
+      setError("Network error, please try again later.");
     } finally {
       setLoading(false);
     }
@@ -91,18 +93,16 @@ function Login() {
         {error && <div className="text-red-500 mb-4">{error}</div>}
         <div className="flex items-center justify-center">
           <button
-            className="bg-dhunjam-purple hover:bg-dhunjam-lilac text-dhunjam-white font-bold py-2 px-4 rounded-lg  focus:outline-none focus:shadow-outline w-[600px]"
+            className={`bg-dhunjam-purple text-dhunjam-white font-bold py-2 px-4 rounded-lg  w-[600px]  hover:  border-[#F0C3F1]
+                  `}
             type="submit"
             disabled={loading}
           >
-            {loading ? 'Signing In...' : 'Sign In'}
+            {loading ? "Signing In..." : "Sign In"}
           </button>
         </div>
         <div className="mt-4 text-center">
-          <a
-            href="/register"
-            className="text-dhunjam-white text-sm"
-          >
+          <a href="/register" className="text-dhunjam-white text-sm">
             New Registration?
           </a>
         </div>
