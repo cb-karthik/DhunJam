@@ -100,7 +100,7 @@ function AdminDashboard() {
     amounts[0] >= 79 &&
     amounts[1] >= 59 &&
     amounts[2] >= 39 &&
-    amounts[3] >= 19;
+    amounts[3] >= 19
 
   return (
     <div className="min-h-screen h-fit flex flex-col items-center  bg-[#030303] font-poppins text-[#FFFFFF]">
