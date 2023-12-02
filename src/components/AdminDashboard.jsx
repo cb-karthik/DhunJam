@@ -180,7 +180,7 @@ function AdminDashboard() {
           <div
             className={`bg-[#030303] w-[600px] mt-20 h-64 mb-4 flex items-center relative `}
           >
-            <span className="absolute text-white text-lg top-[0] left-0 ">
+            <span className="absolute text-white text-xl -top-6 left-0 ">
               ₹
             </span>
             <Chart amounts={[customSongAmount, ...amounts]} />

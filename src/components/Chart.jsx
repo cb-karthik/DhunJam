@@ -14,8 +14,8 @@ const Chart = ({ amounts }) => {
       data={chartData}
       margin={{ top: 5, right: 0, left: 0, bottom: 5 }}
     >
-      <XAxis dataKey="name" />
-      <YAxis />
+      <XAxis dataKey="name" tick={{ fill: 'white' }}/>
+      <YAxis tick={{ fill: 'black' }} />
       <Bar barSize={30} dataKey="amount" fill="#F0C3F1" />
     </BarChart>
     </div>

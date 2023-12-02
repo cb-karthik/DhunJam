@@ -8,9 +8,8 @@ function App() {
     <BrowserRouter>
       <div className="bg-black">
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/dashboard" element={<AdminDashboard />} />
-          
+          <Route exact path="/" element={<Login />} />
+          <Route exact path="/dashboard" element={<AdminDashboard />} />
         </Routes>
       </div>
     </BrowserRouter>
